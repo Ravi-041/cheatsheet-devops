@@ -422,6 +422,31 @@ Initialize kubeadm
 kubeadm init
 ```
 
+kubeadm init preflight errors - CRI (CRI]: container runtime is not running: output: E1117 07:23:30.483591 21432 remote_runtime.go:948] "Status from runtime service failed" err="rpc error: code = Unimplemented desc = unknown service runtime.v1alpha2.RuntimeService")
+```
+Resolution:
+
+If you get the same issue then do the below
+
+disabled_plugins = ["cri"]
+insinde my /etc/containerd/config.toml configuration file. Commenting this line and restarting the service with sudo systemctl restart containerd.service fixed it.
+
+You may need to reset kubeadm installation using
+
+sudo kubeadm reset -f
+In my bare-metal kubernetes cluster 1 Master and 2 Worker, i reset my kubeadm previous installtion by these command
+
+sudo kubeadm reset -f
+rm -rf /etc/cni /etc/kubernetes /var/lib/dockershim /var/lib/etcd
+rm -rf /var/lib/kubelet /var/run/kubernetes ~/.kube/* 
+iptables -F && iptables -X
+iptables -t nat -F && iptables -t nat -X 
+iptables -t raw -F && iptables -t raw -X 
+iptables -t mangle -F && iptables -t mangle -X 
+systemctl restart docker
+systemctl restart containerd
+
+
 Configure kubectl using commands in the output:
 ```
 mkdir -p $HOME/.kube
