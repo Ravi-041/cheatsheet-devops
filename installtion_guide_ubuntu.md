@@ -420,6 +420,8 @@ sudo systemctl enable kubelet
 Initialize kubeadm 
 ```
 kubeadm init
+or
+kubeadm init --apiserver-advertise-address=192.168.0.105
 ```
 
 kubeadm init preflight errors - CRI (CRI]: container runtime is not running: output: E1117 07:23:30.483591 21432 remote_runtime.go:948] "Status from runtime service failed" err="rpc error: code = Unimplemented desc = unknown service runtime.v1alpha2.RuntimeService")
