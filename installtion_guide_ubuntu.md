@@ -194,36 +194,36 @@ Use the following command to monitor the SonarQube log.
 
 SonarQube can be started directly using the startup script provided in the installer package. As a matter of convenience, you should setup a Systemd unit file for SonarQube.
 
-sudo nano /etc/systemd/system/sonar.service
+ - sudo nano /etc/systemd/system/sonar.service
 
 Populate the file with:
 
-[Unit]
-Description=SonarQube service
-After=syslog.target network.target
+	[Unit]
+	Description=SonarQube service
+	After=syslog.target network.target
 
-[Service]
-Type=forking
+	[Service]
+	Type=forking
 
-ExecStart=/opt/sonarqube/bin/linux-x86-64/sonar.sh start
-ExecStop=/opt/sonarqube/bin/linux-x86-64/sonar.sh stop
+	ExecStart=/opt/sonarqube/bin/linux-x86-64/sonar.sh start
+	ExecStop=/opt/sonarqube/bin/linux-x86-64/sonar.sh stop
 
-User=root
-Group=root
-Restart=always
+	User=root
+	Group=root
+	Restart=always
 
-[Install]
-WantedBy=multi-user.target
+	[Install]
+	WantedBy=multi-user.target
 
 Start the application by running:
 
 sudo systemctl start sonar
 Enable the SonarQube service to automatically start at boot time.
 
-sudo systemctl enable sonar
+ 	- sudo systemctl enable sonar
 To check if the service is running, run:
 
-sudo systemctl status sonar
+	- sudo systemctl status sonar
 
 for more deatils refer - https://techexpert.tips/sonarqube/sonarqube-installation-ubuntu-linux/
 
